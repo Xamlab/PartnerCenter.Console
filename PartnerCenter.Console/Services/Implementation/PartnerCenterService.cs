@@ -49,7 +49,7 @@ namespace PartnerCenter.Console.Services.Implementation
 
         public async Task<FlightSubmission> CreateFlightSubmissionAsync(Guid flightId, CancellationToken cancellationToken = default)
         {
-            var response = await _httpClient.PostAsync($"v1.0/my/applications/{_configuration.ApplicationId}/flights/{flightId}/submissions", new StringContent(""), cancellationToken);
+            var response = await _httpClient.PostAsJsonAsync($"v1.0/my/applications/{_configuration.ApplicationId}/flights/{flightId}/submissions", new {}, cancellationToken);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<FlightSubmission>(_jsonSerializationOptions, cancellationToken);
             return result!;
